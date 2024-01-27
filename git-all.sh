@@ -60,14 +60,26 @@ echo
 		exit 1
 }
 
+#helper functions
+
+#serialize
+serialize() {
+    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "./git-all-s.sh"
+}
+
+#deserialize
+deserialize() {
+    source "./git-all-s.sh"
+}
+
+
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
 
 
 
-
-# iterates through parametersf
+# iterates through parameters
 for i in "$@"
 do 
 	# HELP PAGE
@@ -79,16 +91,16 @@ do
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
 	then
 		# the new message
-		new_msg="$(echo $i | cut -d'=' -f2)"
+		git_msg="$(echo $i | cut -d'=' -f2)"
 
 		# if the message is blank
-		if [ -z "$new_msg" ]
+		if [ -z "$git_msg" ]
 		then
 			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message."
 			exit 1
 		fi
 
-		typeset -p "$new_msg" > "./git-all-s.sh"
+		serialize git_msg
 
 		exit 1
 	# if relative dir (without ./) 
@@ -113,7 +125,7 @@ then
 	# if no custom message and git message is blank
 	if [ -f "./git-all-s.sh" ]
 	then
-		source "./git-all-s.sh"
+		deserialize git_msg
 
 	#default (no serialization in place)
 	else 
