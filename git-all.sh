@@ -1,7 +1,17 @@
 #!/bin/bash
 
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
-# convenient way of automating a repetive taskdsffvds
+# convenient way of automating a repetive tasks
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]
+then
+	echo NAME
+	echo -e "GIT-ALL - lazy way to handle repos\n by Dmytro Moshkovskyi\nhttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh"
+	
+	echo -e "pulls from repo -> adds everything -> commits with default/custom message -> pushes to repo\n"
+
+
+fi
 
 
 #newline
