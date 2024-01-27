@@ -3,32 +3,6 @@
 : "
 snooping around the source code?
 sure, go ahead
-
-NAME:
-   GIT-ALL - convenient way to handle personal repos
-   https://github.com/wettestsock/ez-scripts/blob/main/git-all.sh
-   by Dmytro Moshkovskyi
-
-HOW IT WORKS:
-   pulls from repo
-    -> adds all to staging area
-     -> commits with default/custom message
-      -> pushes to repo
-
-USAGE:
-   git-all [OPTIONS] ...
-
-OPTIONS:
-   -h, --help			help page
-   -dm=, --def-msg=<text>	set default message
-				will create a git-all-s.sh file in the script's directory
-				('nothing of note' by default)
-
-   <directory>			git commits in the passed directory
-				will use the current dir / go down to parent dirs
-
-   <message>			adds a custom message to the commit
-
 "
 
 
@@ -36,7 +10,7 @@ OPTIONS:
 help_page(){
 echo
 		echo NAME:
-		echo -e "   GIT-ALL - convenient way to handle personal repos\n   https://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n   by Dmytro Moshkovskyi"
+		echo -e "   GIT-ALL\n   convenient way to handle personal repos\n   https://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n   by Dmytro Moshkovskyi"
 
 		echo
 		echo HOW IT WORKS:
@@ -53,9 +27,14 @@ echo
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t('nothing of note' by default)\n"
 
+		echo -e '   -p=, --pull=<1/0, true/false>\twhether to do a git pull first'
+		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t(1 by default)\n"
+
 		echo -e "   <directory>\t\t\tgit commits in the passed directory"
-		echo -e "\t\t\t\twill use the current dir / go down to parent dirs\n"
+		echo -e "\t\t\t\tby default will use the current dir / go down to parent dirs\n"
+
 		echo -e "   <message>\t\t\tadds a custom message to the commit"
+		echo -e "\t\t\t\tby default will be default message"
 
 		exit 1
 }
@@ -136,10 +115,10 @@ fi
 #change to the inputted (or default) dir
 cd $dir
 
-if [ "$(echo "$(git rev-parse --is-inside-work-tree)")" != "true" ] # if theres no git repo
+if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
 then
 	cd $dir_start
-	echo -e "NOT A REPO!!\n FIND A REPO!!\n"
+	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
 	help_page
 	exit 1	
 fi
