@@ -212,7 +212,7 @@ then
 fi
 
 
-if [ "$(git_pull)" == "true" ]
+if [ "$git_pull" == "true" ]
 then
 	echo GIT PULL
 else 
