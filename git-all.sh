@@ -1,16 +1,36 @@
 #!/bin/bash
 
-# GIT PULLS, GIT ADDS, COMMITS AND PUSHES
-# convenient way of automating a repetive taskse
+: "
+snooping around the source code?
+sure, go ahead
 
-dir="."
-dir_start="$(pwd)"
-git_msg=""
+NAME:
+   GIT-ALL - convenient way to handle personal repos
+   https://github.com/wettestsock/ez-scripts/blob/main/git-all.sh
+   by Dmytro Moshkovskyi
 
-if [ -f "./git-all-s.sh" ]
-then
-	source "./git-all-s.sh"
-fi
+HOW IT WORKS:
+   pulls from repo
+    -> adds all to staging area
+     -> commits with default/custom message
+      -> pushes to repo
+
+USAGE:
+   git-all [OPTIONS] ...
+
+OPTIONS:
+   -h, --help			help page
+   -dm=, --def-msg=<text>	set default message
+				will create a git-all-s.sh file in the script's directory
+				('nothing of note' by default)
+
+   <directory>			git commits in the passed directory
+				will use the current dir / go down to parent dirs
+
+   <message>			adds a custom message to the commit
+
+"
+
 
 #calls a help page
 help_page(){
@@ -40,7 +60,14 @@ echo
 		exit 1
 }
 
+dir="."
+dir_start="$(pwd)"
+git_msg=""
 
+
+
+
+# iterates through parameters
 for i in "$@"
 do 
 	# HELP PAGE
@@ -48,16 +75,19 @@ do
 	then
 		help_page
 	
-	# if setting acustom default message
-	#short 
-	elif [ "${i:0:4}" == "-dm=" ] 
+	# if setting custom default message
+	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
 	then
-		echo "${i:4:10}"
-		exit 1
-	# long
-	elif [ "${i:0:10}" == "--def-msg=" ]
-	then
-		echo "${i:10:20}"
+		# the new message
+		new_msg="$(echo $i | cut -d'=' -f2)"
+
+		# if the message is blank
+		if [ -z "$new_msg" ]
+		then
+			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message."
+			exit 1
+		fi
+
 		exit 1
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
@@ -74,10 +104,19 @@ do
 	fi
 done
 
-# if git message is blank (default)
+
+# if git message is blank (default msg)
 if [ -z "$git_msg" ]
 then
-	$git_msg = "nothing of note"
+	# if no custom message and git message is blank
+	if [ -f "./git-all-s.sh" ]
+	then
+		source "./git-all-s.sh"
+
+	#default (no serialization in place)
+	else 
+		git_msg="nothing of note"
+	fi
 fi
 
 #change to the inputted (or default) dir
