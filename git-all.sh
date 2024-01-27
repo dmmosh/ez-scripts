@@ -3,35 +3,57 @@
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
 # convenient way of automating a repetive tasks
 
-if [ "$1" == "--help" ] || [ "$1" == "-h" ]
-then
-	echo NAME
-	echo -e "\tGIT-ALL - lazy way to handle repos\n by Dmytro Moshkovskyi\nhttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh"
-
-	echo -e "pulls from repo -> adds everything -> commits with default/custom message -> pushes to repo\n"
-
-
-fi
-
-
-#newline
-echo
-
-git_msg="nothing of note"
 dir="."
 dir_start=$(pwd)
+git_msg="nothing of note"
 
-if [ -d "$1" ]	#if param 1 is directory 
-then
-	dir="$1"
-	if [ "$2" ] #if param 2 is msg
-	then
-		git_msg="$2"
-	fi
-elif [ "$1" ] # elif param 1 is msg
-then
-	git_msg="$1"
-fi	
+for i in "$@"
+do 
+	case "$i" in
+
+	# if help message, prints help and quits
+	"-h" | "--help")
+
+	echo
+	echo NAME:
+	echo -e "\tGIT-ALL - lazy way to handle repos\n\thttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n\tby Dmytro Moshkovskyi"
+
+	echo
+	echo HOW IT WORKS:
+	echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo\n"
+
+	echo
+	echo USAGE:
+	echo -e "   git-all [OPTIONS] ..."
+
+	echo 
+	echo OPTIONS:
+	echo -e "   -h, --help\t\t\thelp page"
+	echo -e "   <directory>\t\tgit commits in the passed directory"
+
+	echo -e '   -dm=, --def-msg=<text>\tset default message'
+	echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
+
+
+
+	exit 1
+	;;
+
+	# if param is a directory
+	-d)
+		dir="$i"
+	;;
+
+	# if param is a msg
+	*)
+		git_msg+="$i"
+	;;
+
+	esac
+
+
+done
+
 #change to dir
 cd $dir
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
