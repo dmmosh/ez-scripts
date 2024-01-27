@@ -39,7 +39,8 @@ echo
 		exit 1
 }
 
-#helper functions
+# script's dir
+script_dir="$(realpath $(dirname $0))"
 
 #serialize
 serialize() {
@@ -55,7 +56,7 @@ serialize() {
 	;;
 	esac
 
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$(realpath $(dirname $0))/$file"
+    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$script_dir/$file"
 }
 
 #deserialize
@@ -71,7 +72,7 @@ deserialize() {
 	;;
 	esac
 
-    source "$(realpath $(dirname $0))/$file"
+    source "$script_dir/$file"
 }
 
 
@@ -105,14 +106,14 @@ do
 
 		serialize git_msg 
 
-		if [ ! -f "$(realpath "$(dirname $0)")/git-all-sm.sh" ]
+		if [ ! -f "$script_dir/git-all-sm.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
 			exit 1
 		fi
 
 		echo -e "\nDEFAULT MESSAGE of '$git_msg' SUCCESSFULLY SERIALIZED IN:"
-		echo "$(realpath "$(dirname $0)")/git-all-sm.sh"
+		echo "$script_dir/git-all-sm.sh"
 
 		exit 1
 	
@@ -146,14 +147,14 @@ do
 		serialize git_pull
 
 		# something bad happene
-		if [ ! -f "$(realpath $(dirname $0))/git-all-sp.sh" ]
+		if [ ! -f "$script_dir/git-all-sp.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
 			exit 1
 		fi
 
 		echo -e "\nPULL STATUS of $git_pull SUCCESSFULLY SERIALIZED IN:"
-		echo "$(realpath $(dirname $0))/git-all-sp.sh"
+		echo "$script_dir/git-all-sp.sh"
 		exit 1
 
 	# if relative dir (without ./) 
@@ -176,7 +177,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "./git-all-sm.sh" ]
+	if [ -f "$script_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -188,7 +189,7 @@ fi
 
 
 # pull status
-if [ -f "./git-all-sp.sh" ]
+if [ -f "$script_dir/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
