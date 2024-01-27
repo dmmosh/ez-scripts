@@ -113,7 +113,7 @@ then
 	then
 		source "./git-all-s.sh"
 
-	#default (no serialization in place)
+	#default (no serialization in place)v
 	else 
 		git_msg="nothing of note"
 	fi
