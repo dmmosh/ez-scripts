@@ -1,2 +1,2 @@
 # EZ SCRIPTS #
-my custom scripts for automating annoying tasks
+my customn scripts for automating annoying tasks 
