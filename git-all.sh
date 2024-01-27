@@ -41,7 +41,7 @@ do
 	then
 		dir="./$i"
 	
-	# if relative (with ./) or absolute dir
+	# if relative (with ./) or absolute dirfg
 	elif [ -d "$i" ]
 	then
 		dir="$i"
