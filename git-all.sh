@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
-# convenient way of automating a repetive tasks
+# convenient way of automating a repetive taskse
 
 dir="."
 dir_start=$(pwd)
