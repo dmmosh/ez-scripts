@@ -136,7 +136,7 @@ fi
 #change to the inputted (or default) dir
 cd $dir
 
-if [ "$(echo "$(git rev-parse --is-inside-work-tree)")" != "true"] # if theres no git repo
+if [ "$(echo "$(git rev-parse --is-inside-work-tree)")" != "true" ] # if theres no git repo
 then
 	cd $dir_start
 	echo -e "NOT A REPO!!\n FIND A REPO!!\n"
