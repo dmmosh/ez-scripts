@@ -5,7 +5,7 @@
 
 dir="."
 dir_start=$(pwd)
-git_msg="nothing of note"
+git_msg=""
 
 for i in "$@"
 do 
