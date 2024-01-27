@@ -46,7 +46,7 @@ do
 	then
 		dir="$i"
 	else
-		git_msg+="$i"
+		git_msg+="$i "
 	fi
 done
 
