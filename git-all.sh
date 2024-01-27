@@ -124,12 +124,12 @@ do
 		# if pull is false
 		if [ "$(echo "$git_pull" | tr A-Z a-z)" == "false" ] || [ "$git_pull" == "0" ]
 		then
-			git_pull=false
+			git_pull="false"
 		
 		# if pull is true
 		elif [ "$(echo "$git_pull" | tr A-Z a-z)" == "true" ] || [ "$git_pull" == "1" ]
 		then
-			git_pull=true
+			git_pull="true"
 
 		# if no arg is given
 		elif [ -z "$git_pull" ]
@@ -196,7 +196,7 @@ then
 		deserialize git_pull
 	#default (no serialization in place)
 	else 
-		git_pull=true
+		git_pull="true"
 	fi
 fi
 
@@ -212,7 +212,7 @@ then
 fi
 
 
-if [ git_pull ]
+if [ "$(git_pull)" == "true" ]
 then
 	echo GIT PULL
 else 
