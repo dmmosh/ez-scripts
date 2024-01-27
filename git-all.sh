@@ -28,6 +28,7 @@ do
 		echo OPTIONS:
 		echo -e "   -h, --help\t\t\thelp page"
 		echo -e "   <directory>\t\tgit commits in the passed directory"
+		echo -e "   <message>\t\tadds a custom message"
 
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
@@ -41,7 +42,7 @@ do
 	then
 		dir="./$i"
 	
-	# if relative (with ./) or absolute dirfg
+	# if relative (with ./) or absolute dir
 	elif [ -d "$i" ]
 	then
 		dir="$i"
