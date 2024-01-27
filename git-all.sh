@@ -5,7 +5,7 @@
 
 dir="."
 dir_start="$(pwd)"
-git_msg="nothing of note"
+git_msg=""
 
 if [ -f "./git-all-s.sh" ]
 then
@@ -48,6 +48,17 @@ do
 	then
 		help_page
 	
+	# if setting acustom default message
+	#short 
+	elif [ "${i:0:4}" == "-dm=" ] 
+	then
+		echo "${i:4:10}"
+		exit 1
+	# long
+	elif [ "${i:0:10}" == "--def-msg=" ]
+	then
+		echo "${i:10:20}"
+		exit 1
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
@@ -57,16 +68,17 @@ do
 	elif [ -d "$i" ]
 	then
 		dir="$i"
-	elif [ "${i:0:4}" == "-dm=" ]
-	then
-		echo hi 
-		exit 1
 	# if git message
 	else
 		git_msg+="$i "
 	fi
 done
 
+# if git message is blank (default)
+if [ -z "$git_msg" ]
+then
+	$git_msg = "nothing of note"
+fi
 
 #change to the inputted (or default) dir
 cd $dir
