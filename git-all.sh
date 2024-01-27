@@ -27,7 +27,7 @@ echo
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t('nothing of note' by default)\n"
 
-		echo -e '   -p=, --pull=<1/0, true/false>\twhether to do a git pull first'
+		echo -e '   -p=, --pull=<1/0, true/false> whether to do a git pull first'
 		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t(1 by default)\n"
 
 		echo -e "   <directory>\t\t\tgit commits in the passed directory"
@@ -43,18 +43,42 @@ echo
 
 #serialize
 serialize() {
-    typeset -p $1 | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "./git-all-s.sh"
+
+	# the file to serialize to
+	file="git-all-debug.sh"
+	case $1 in
+	"git_msg")
+		file="git-all-sm.sh"
+	;;
+	"git_pull")
+		file="git-all-sp.sh"
+	;;
+	esac
+
+    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$(realpath $(dirname $0))/$file"
 }
 
 #deserialize
 deserialize() {
-    source "./git-all-s.sh"
+	# the file to serialize to
+	file="git-all-debug.sh"
+	case $1 in
+	"git_msg")
+		file="git-all-sm.sh"
+	;;
+	"git_pull")
+		file="git-all-sp.sh"
+	;;
+	esac
+
+    source "$(realpath $(dirname $0))/$file"
 }
 
 
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
+git_pull=""
 
 
 
@@ -75,13 +99,63 @@ do
 		# if the message is blank
 		if [ -z "$git_msg" ]
 		then
-			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message."
+			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message.\n   Type 'git-all --help' for more info."
 			exit 1
 		fi
 
-		serialize git_msg
+		serialize git_msg 
+
+		if [ ! -f "$(realpath "$(dirname $0)")/git-all-sm.sh" ]
+		then
+			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
+			exit 1
+		fi
+
+		echo -e "\nDEFAULT MESSAGE of '$git_msg' SUCCESSFULLY SERIALIZED IN:"
+		echo "$(realpath "$(dirname $0)")/git-all-sm.sh"
 
 		exit 1
+	
+	# if setting whether to pull or not
+	elif [ "$(echo $i | cut -d'=' -f1)" == "-p" ] || [ "$(echo $i | cut -d'=' -f1)" == "--pull" ] 
+	then
+		git_pull="$(echo $i | cut -d'=' -f2)"
+
+		# if pull is false
+		if [ "$(echo "$git_pull" | tr A-Z a-z)" == "false" ] || [ "$git_pull" == "0" ]
+		then
+			git_pull=false
+		
+		# if pull is true
+		elif [ "$(echo "$git_pull" | tr A-Z a-z)" == "true" ] || [ "$git_pull" == "1" ]
+		then
+			git_pull=true
+
+		# if no arg is given
+		elif [ -z "$git_pull" ]
+		then
+			echo -e "\nFATAL ERROR:\n   No pull status provided.\n   Please provide a pull status.\n   Type 'git-all --help' for more info."
+			exit 1
+		
+		# if some other typo
+		else
+			echo -e "\nFATAL ERROR:\n   That's not a valid pull status.\n   Please provide a pull status.\n   Type 'git-all --help' for more info."
+			exit 1
+		fi 
+
+		serialize git_pull
+
+		# something bad happene
+		if [ ! -f "$(realpath $(dirname $0))/git-all-sp.sh" ]
+		then
+			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
+			exit 1
+		fi
+
+		echo -e "\nPULL STATUS of $git_pull SUCCESSFULLY SERIALIZED IN:"
+		echo "$(realpath $(dirname $0))/git-all-sp.sh"
+		exit 1
+
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
@@ -102,7 +176,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "./git-all-s.sh" ]
+	if [ -f "./git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -112,25 +186,45 @@ then
 	fi
 fi
 
+
+# pull status
+if [ -z "$git_pull" ]
+then
+	# if no custom message and git message is blank
+	if [ -f "./git-all-sp.sh" ]
+	then
+		deserialize git_pull
+	#default (no serialization in place)
+	else 
+		git_pull=true
+	fi
+fi
+
+
 #change to the inputted (or default) dir
 cd $dir
 
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
 then
 	cd $dir_start
-	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
-	help_page
+	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!\n   Type 'git-all --help' for more info."
 	exit 1	
 fi
 
-git pull && \
+
+if [ git_pull ]
+then
+	echo GIT PULL
+else 
+	echo NO PULLING
+fi
+
 git add --all && \
 git commit -m "$git_msg" && \
 git push && \
-echo -e "REPO PUSHED" && \
-echo -e "note: check the .gitignore file\n" && \
+echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
 exit 1
 # final exception handle
-echo -e "SOMETHING DIDN'T WORK!!!!\nFAILED TO PUSH!!\n"	
+echo -e "SOMETHING DIDN'T WORK!!!!\nFAILED TO PUSH!!\n   Type 'git-all --help' for more info."	
 cd $dir_start
