@@ -3,7 +3,7 @@
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
 # convenient way of automating a repetive taskse
 
-dir=""
+dir="."
 dir_start="$(pwd)"
 git_msg=""
 
@@ -50,7 +50,7 @@ do
 	fi
 done
 
-# if blank git message , use default ddd
+# if blank git message , use default dddde
 if [ -z "$git_msg" ]
 then
 	git_msg="nothing of note"
