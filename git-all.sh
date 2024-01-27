@@ -60,14 +60,14 @@ echo
 		exit 1
 }
 
-dir="."
-dir_start="$(pwd)"
-git_msg=""
+dir="." #directory to be gitted into
+dir_start="$(pwd)" #current dir
+git_msg="" # the git message
 
 
 
 
-# iterates through parameters
+# iterates through parametersf
 for i in "$@"
 do 
 	# HELP PAGE
@@ -87,6 +87,8 @@ do
 			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message."
 			exit 1
 		fi
+
+		typeset -p "$new_msg" > "./git-all-s.sh"
 
 		exit 1
 	# if relative dir (without ./) 
@@ -113,7 +115,7 @@ then
 	then
 		source "./git-all-s.sh"
 
-	#default (no serialization in place)v
+	#default (no serialization in place)
 	else 
 		git_msg="nothing of note"
 	fi
