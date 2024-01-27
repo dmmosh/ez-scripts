@@ -144,7 +144,7 @@ then
 	exit 1	
 fi
 
-git pull
+git pull && \
 git add --all && \
 git commit -m "$git_msg" && \
 git push && \
