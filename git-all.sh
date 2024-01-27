@@ -18,7 +18,7 @@ do
 
 		echo
 		echo HOW IT WORKS:
-		echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo\n"
+		echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo"
 
 		echo
 		echo USAGE:
@@ -27,11 +27,13 @@ do
 		echo 
 		echo OPTIONS:
 		echo -e "   -h, --help\t\t\thelp page"
-		echo -e "   <directory>\t\tgit commits in the passed directory"
-		echo -e "   <message>\t\tadds a custom message"
 
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
+
+		echo -e "   <directory>\t\t\tgit commits in the passed directory"
+		echo -e "\twill use the current directory/go down to parent directories"
+		echo -e "   <message>\t\t\tadds a custom message"
 
 
 
