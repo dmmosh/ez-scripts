@@ -64,7 +64,7 @@ echo
 
 #serialize
 serialize() {
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "./git-all-s.sh"
+    typeset -p $1 | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "./git-all-s.sh"
 }
 
 #deserialize
