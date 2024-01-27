@@ -39,7 +39,12 @@ echo
 		exit 1
 }
 
+info(){
+   	echo -e "   Type 'git-all --help' for more info."
+}
+
 # script's dir
+# useful for serialization
 script_dir="$(realpath $(dirname $0))"
 
 #serialize
@@ -100,7 +105,8 @@ do
 		# if the message is blank
 		if [ -z "$git_msg" ]
 		then
-			echo -e "\nFATAL ERROR:\n   No new default message provided.\n   Please provide a new default message.\n   Type 'git-all --help' for more info."
+			echo -e "\nFATAL ERROR:\n   No new default message provided."
+			info
 			exit 1
 		fi
 
@@ -108,7 +114,8 @@ do
 
 		if [ ! -f "$script_dir/git-all-sm.sh" ]
 		then
-			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
+			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
+			info
 			exit 1
 		fi
 
@@ -135,12 +142,14 @@ do
 		# if no arg is given
 		elif [ -z "$git_pull" ]
 		then
-			echo -e "\nFATAL ERROR:\n   No pull status provided.\n   Please provide a pull status.\n   Type 'git-all --help' for more info."
+			echo -e "\nFATAL ERROR:\n   No pull status provided.\n   Please provide a pull status."
+			info
 			exit 1
 		
 		# if some other typo
 		else
-			echo -e "\nFATAL ERROR:\n   That's not a valid pull status.\n   Please provide a pull status.\n   Type 'git-all --help' for more info."
+			echo -e "\nFATAL ERROR:\n   That's not a valid pull status.\n   Please provide a pull status."
+			info
 			exit 1
 		fi 
 
@@ -149,7 +158,8 @@ do
 		# something bad happene
 		if [ ! -f "$script_dir/git-all-sp.sh" ]
 		then
-			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed.\n   Type 'git-all --help' for more info."
+			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
+			info
 			exit 1
 		fi
 
@@ -201,7 +211,8 @@ cd $dir
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
 then
 	cd $dir_start
-	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!\n   Type 'git-all --help' for more info."
+	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
+	info
 	exit 1	
 fi
 
@@ -220,5 +231,5 @@ echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
 exit 1
 # final exception handle
-echo -e "SOMETHING DIDN'T WORK!!!!\nFAILED TO PUSH!!\n   Type 'git-all --help' for more info."	
+echo -e "SOMETHING DIDN'T WORK!!!!\nFAILED TO PUSH!!"	
 cd $dir_start
