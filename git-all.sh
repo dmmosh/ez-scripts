@@ -41,7 +41,7 @@ do
 
 	# if param is a directory
 	-d)
-		dir="$i"
+		dir+="$i"
 		continue;
 	;;
 
