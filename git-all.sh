@@ -78,7 +78,7 @@ deserialize() {
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
-git_pull=""
+git_pull="true"
 
 
 
@@ -188,16 +188,9 @@ fi
 
 
 # pull status
-if [ -z "$git_pull" ]
+if [ -f "./git-all-sp.sh" ]
 then
-	# if no custom message and git message is blank
-	if [ -f "./git-all-sp.sh" ]
-	then
-		deserialize git_pull
-	#default (no serialization in place)
-	else 
-		git_pull="true"
-	fi
+	deserialize git_pull
 fi
 
 
