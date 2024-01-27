@@ -42,6 +42,7 @@ do
 	# if param is a directory
 	-d)
 		dir="$i"
+		continue;
 	;;
 
 	# if param is a msg
