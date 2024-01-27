@@ -1,1 +1,1 @@
-declare -g -- git_msg="testtest"
+declare -g -- git_msg="testintdfhsiukhfduk"
