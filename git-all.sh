@@ -50,8 +50,6 @@ do
 	;;
 
 	esac
-
-
 done
 
 #change to dir
