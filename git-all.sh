@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
-# convenient way of automating a repetive task
+# convenient way of automating a repetive taskdsff
 
 
 #newline
