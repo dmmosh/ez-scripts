@@ -3,57 +3,54 @@
 # GIT PULLS, GIT ADDS, COMMITS AND PUSHES
 # convenient way of automating a repetive taskse
 
-dir="."
-dir_start=$(pwd)
+dir=""
+dir_start="$(pwd)"
 git_msg=""
 
 for i in "$@"
 do 
-	case "$i" in
+		if [ "$i" == "-h" ] || [ "$i" == "--help" ]
+		then
 
-	# if help message, prints help and quits
-	"-h" | "--help")
+		echo
+		echo NAME:
+		echo -e "\tGIT-ALL - lazy way to handle repos\n\thttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n\tby Dmytro Moshkovskyi"
 
-	echo
-	echo NAME:
-	echo -e "\tGIT-ALL - lazy way to handle repos\n\thttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n\tby Dmytro Moshkovskyi"
+		echo
+		echo HOW IT WORKS:
+		echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo\n"
 
-	echo
-	echo HOW IT WORKS:
-	echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo\n"
+		echo
+		echo USAGE:
+		echo -e "   git-all [OPTIONS] ..."
 
-	echo
-	echo USAGE:
-	echo -e "   git-all [OPTIONS] ..."
+		echo 
+		echo OPTIONS:
+		echo -e "   -h, --help\t\t\thelp page"
+		echo -e "   <directory>\t\tgit commits in the passed directory"
 
-	echo 
-	echo OPTIONS:
-	echo -e "   -h, --help\t\t\thelp page"
-	echo -e "   <directory>\t\tgit commits in the passed directory"
-
-	echo -e '   -dm=, --def-msg=<text>\tset default message'
-	echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
+		echo -e '   -dm=, --def-msg=<text>\tset default message'
+		echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
 
 
 
-	exit 1
-	;;
-
-	# if param is a directory
-	-d)
-		dir+="$i"
-		continue;
-	;;
-
-	# if param is a msg
-	*)
+		exit 1
+	
+	# if relative dir (without ./) 
+	elif [ -d "./$i" ] 
+	then
+		dir="./$i"
+	
+	# if relative (with ./) or absolute dir
+	elif [ -d "$i" ]
+	then
+		dir="$i"
+	else
 		git_msg+="$i"
-	;;
-
-	esac
+	fi
 done
 
-
+# if blank git message , use default
 if [ -z "$git_msg" ]
 then
 	git_msg="nothing of note"
