@@ -53,6 +53,12 @@ do
 	esac
 done
 
+
+if [ -z "$git_msg" ]
+then
+	git_msg="nothing of note"
+fi
+
 #change to dir
 cd $dir
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
