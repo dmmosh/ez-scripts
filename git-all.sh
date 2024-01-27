@@ -5,20 +5,22 @@
 
 dir="."
 dir_start="$(pwd)"
-git_msg=""
+git_msg="nothing of note"
 
-for i in "$@"
-do 
-		if [ "$i" == "-h" ] || [ "$i" == "--help" ]
-		then
+if [ -f "./git-all-s.sh" ]
+then
+	source "./git-all-s.sh"
+fi
 
-		echo
+#calls a help page
+help_page(){
+echo
 		echo NAME:
-		echo -e "\tGIT-ALL - lazy way to handle repos\n\thttps://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n\tby Dmytro Moshkovskyi"
+		echo -e "   GIT-ALL - convenient way to handle personal repos\n   https://github.com/wettestsock/ez-scripts/blob/main/git-all.sh\n   by Dmytro Moshkovskyi"
 
 		echo
 		echo HOW IT WORKS:
-		echo -e "\tpulls from repo\n\t -> adds all to staging area\n\t  -> commits with default/custom message\n\t   -> pushes to repo"
+		echo -e "   pulls from repo\n    -> adds all to staging area\n     -> commits with default/custom message\n      -> pushes to repo"
 
 		echo
 		echo USAGE:
@@ -29,15 +31,22 @@ do
 		echo -e "   -h, --help\t\t\thelp page"
 
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
-		echo -e "\twill create a git-all-s.sh file in the script's directory\n\t('nothing of note' by default)"
+		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t('nothing of note' by default)\n"
 
 		echo -e "   <directory>\t\t\tgit commits in the passed directory"
-		echo -e "\twill use the current directory/go down to parent directories"
-		echo -e "   <message>\t\t\tadds a custom message"
-
-
+		echo -e "\t\t\t\twill use the current dir / go down to parent dirs\n"
+		echo -e "   <message>\t\t\tadds a custom message to the commit"
 
 		exit 1
+}
+
+
+for i in "$@"
+do 
+	# HELP PAGE
+	if [ "$i" == "-h" ] || [ "$i" == "--help" ]
+	then
+		help_page
 	
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
@@ -48,23 +57,25 @@ do
 	elif [ -d "$i" ]
 	then
 		dir="$i"
+	elif [ "${i:0:4}" == "-dm=" ]
+	then
+		echo hi 
+		exit 1
+	# if git message
 	else
 		git_msg+="$i "
 	fi
 done
 
-# if blank git message , use default dddde
-if [ -z "$git_msg" ]
-then
-	git_msg="nothing of note"
-fi
 
-#change to dir
+#change to the inputted (or default) dir
 cd $dir
+
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
 then
 	cd $dir_start
 	echo -e "NOT A REPO!!\n FIND A REPO!!\n"
+	help_page
 	exit 1	
 fi
 
