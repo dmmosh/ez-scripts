@@ -50,7 +50,7 @@ do
 	fi
 done
 
-# if blank git message , use default
+# if blank git message , use default ds
 if [ -z "$git_msg" ]
 then
 	git_msg="nothing of note"
