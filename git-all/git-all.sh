@@ -7,12 +7,6 @@ sure, go ahead
 
 
 
-dir="." #directory to be gitted into
-dir_start="$(pwd)" #current dir
-git_msg="" # the git message
-git_silence=false # whether to silence or notfd
-git_pull="true" # default true
-home_dir="$HOME" # home dir, normal unless running root
 
 #calls a help page
 help_page(){
@@ -66,6 +60,7 @@ serialize() {
 	fi
 
     #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"gf
+
     $(echo "$(typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}')" | sudo tee "$config_dir/$file")
 }
 
@@ -82,6 +77,12 @@ deserialize() {
     source "$config_dir/$file"
 }
 
+dir="." #directory to be gitted into
+dir_start="$(pwd)" #current dir
+git_msg="" # the git message
+git_silence=false # whether to silence or notfd
+git_pull="true" # default true
+home_dir="$HOME" # home dir, normal unless running root
 
 
 # if running as sudo
@@ -104,8 +105,9 @@ do
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
 	then
 		# the new message
-		git_msg="$(echo $i | cut -d'=' -f2)"
+		git_msg="$(echo $@ | cut -d'=' -f2)"
 
+		serialize git_msg
 		# if the message is blank
 		if [ -z "$git_msg" ]
 		then
@@ -114,7 +116,8 @@ do
 			exit 1
 		fi
 
-		serialize git_msg
+		echo $git_msg
+		#serialize git_msg
 
 		# if no config file
 		if [ ! -f "$config_dir/git-all-sm.sh" ]
@@ -127,7 +130,7 @@ do
 		# print message
 		if [ "$git_silence" == "false" ]
 		then
-		echo -e "\nDEFAULT MESSAGE $(echo $git_msg | tr a-z A-Z) SERIALIZED IN:"
+		echo -e "\nDEFAULT MESSAGE '$(echo "$git_msg" | tr a-z A-Z)' SERIALIZED IN:"
 		echo "$config_dir/git-all-sm.sh"
 		fi
 
