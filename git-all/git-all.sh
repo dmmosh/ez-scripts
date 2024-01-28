@@ -60,7 +60,7 @@ serialize() {
 	;;
 	esac
 
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$HOME/.config/ez-scripts/git-all/$file"
+    typeset -p "$1" |  sudo sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$home_dir/.config/ez-scripts/git-all/$file"
 }
 
 #deserialize
@@ -76,7 +76,7 @@ deserialize() {
 	;;
 	esac
 
-    source "$HOME/.config/ez-scripts/git-all/$file"
+    source "$home_dir/.config/ez-scripts/git-all/$file"
 }
 
 
@@ -85,7 +85,13 @@ dir_start="$(pwd)" #current dir
 git_msg="" # the git message
 git_silence=false # whether to silence or not
 git_pull="true" # default true
+home_dir="$HOME" # home dir, normal unless running root
 
+# if running as sudo
+if [ "$UID" -eq 0 ]
+then
+	home_dir="$(eval echo ~$SUDO_USER)"
+fi
 
 
 # iterates through parameters
@@ -112,7 +118,7 @@ do
 
 		serialize git_msg 
 
-		if [ ! -f "$HOME/.config/ez-scripts/git-all/git-all-sm.sh" ]
+		if [ ! -f "home_dir/.config/ez-scripts/git-all/git-all-sm.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
@@ -122,7 +128,7 @@ do
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nDEFAULT MESSAGE '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
-		echo "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
+		echo "home_dir/.config/ez-scripts/git-all/git-all-sm.sh"
 		fi
 
 		exit 1
@@ -159,7 +165,7 @@ do
 		serialize git_pull
 
 		# something bad happene
-		if [ ! -f "$HOME/.config/ez-scripts/git-all/git-all-sp.sh" ]
+		if [ ! -f "home_dir/.config/ez-scripts/git-all/git-all-sp.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
@@ -169,7 +175,7 @@ do
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
-		echo "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
+		echo "home_dir/.config/ez-scripts/git-all/git-all-sp.sh"
 		fi
 		exit 1
 
@@ -197,7 +203,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "$HOME/.config/ez-scripts/git-all/git-all-sm.sh" ]
+	if [ -f "home_dir/.config/ez-scripts/git-all/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -209,7 +215,7 @@ fi
 
 
 # pull status
-if [ -f "$HOME/.config/ez-scripts/git-all/git-all-sp.sh" ]
+if [ -f "home_dir/.config/ez-scripts/git-all/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
@@ -243,7 +249,6 @@ fi
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
 [ "$git_silence" == "true" ] || echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
-echo $HOME && \
 exit 1
 # final exception handle
 echo -e "FATAL ERROR:\n   SOMETHING DIDN'T WORK!!!"
