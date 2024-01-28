@@ -213,7 +213,7 @@ fi
 #change to the inputted (or default) dir
 cd $dir
 
-if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvdo git repofdsf
+if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvddvfo git repofdsf
 then
 	cd $dir_start
 	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
