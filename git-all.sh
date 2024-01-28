@@ -171,7 +171,7 @@ do
 	#silence the output
 	elif [ "$i" == "-s" ] || [ "$i" == "--silence" ]
 	then
-		git_silence1=true
+		git_silence=true
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
