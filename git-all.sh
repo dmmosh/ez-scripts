@@ -226,10 +226,11 @@ if [ "$git_pull" == "true" ]
 then
 	git pull
 fi
+git_silence=false
 
 git add --all && \
 git commit -m "$git_msg" && \
-[ $git_silence ] && $(git push &> /dev/null) || git push && \
+[ $git_silence ] && git push &> /dev/null || git push && \
 echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
 exit 1
