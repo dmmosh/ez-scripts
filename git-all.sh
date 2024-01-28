@@ -47,7 +47,7 @@ info(){
 
 # script's dir
 # useful for serialization
-script_dir="$(realpath $(dirname $0))"
+script_dir="$(realpath $0)"
 
 #serialize
 serialize() {
