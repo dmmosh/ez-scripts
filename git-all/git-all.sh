@@ -73,11 +73,7 @@ deserialize() {
 		file="git-all-sp.sh"
 	fi
 
-    declare() { builtin declare -g "$1"; }
-    typeset() { builtin typeset -g "$1"; }
-
     source "$home_dir/$file"
-    unset -f declare typeset
 }
 
 
@@ -204,7 +200,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "home_dir/.config/ez-scripts/git-all/git-all-sm.sh" ]
+	if [ -f "$home_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -216,7 +212,7 @@ fi
 
 
 # pull status
-if [ -f "home_dir/.config/ez-scripts/git-all/git-all-sp.sh" ]
+if [ -f "$home_dir/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
