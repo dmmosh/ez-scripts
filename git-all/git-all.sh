@@ -243,6 +243,7 @@ fi
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
 [ "$git_silence" == "true" ] || echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
+echo $HOME && \
 exit 1
 # final exception handle
 echo -e "FATAL ERROR:\n   SOMETHING DIDN'T WORK!!!"
