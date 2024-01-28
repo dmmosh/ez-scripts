@@ -14,7 +14,7 @@ echo
 
 		echo
 		echo HOW IT WORKS:
-		echo -e "   pulls from repo\n    -> adds all to staging area\n     -> commits with default/custom message\n      -> pushes to repo"
+		echo -e "   pulls from repo (by default)\n    -> adds all to staging area\n     -> commits with default/custom message\n      -> pushes to repo"
 
 		echo
 		echo USAGE:
@@ -84,7 +84,9 @@ deserialize() {
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
-git_pull="true"
+git_silence1="" # whether to silence or not
+git_silence2=""
+git_pull="true" # default true
 
 
 
@@ -167,6 +169,12 @@ do
 		echo "$script_dir/git-all-sp.sh"
 		exit 1
 
+	#silence the output
+	elif [ "$i" == "-s" ] || [ "$i" == "--silence" ]
+	then
+		git_silence1="&>"
+		git_silence2="/dev/null"
+
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
@@ -219,12 +227,13 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	git pull
+	git pull 
 fi
-git add --all && \
-git commit -m "$git_msg" && \
-git push && \
-echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
+
+git add --all  && \
+git commit -m "$git_msg"  && \
+git push &> /dev/null && \
+echo -e "REPO PUSHED VERY SUCCESSFULLY"  && \
 cd $dir_start && \
 exit 1
 # final exception handle
