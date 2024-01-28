@@ -221,7 +221,7 @@ then
 	exit 1	
 fi
 
-if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" && -z "$(git status -uno | grep 'Your branch is ahead of')" ]
+if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" ] && [ -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 then
 	[ "$git_silence" == "true" ] || git status -uno
 	exit 1
