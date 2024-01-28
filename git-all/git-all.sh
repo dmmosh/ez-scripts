@@ -223,7 +223,7 @@ fi
 
 
 #change to the inputted (or default) dir
-	$dir
+cd $dir
 
 
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
