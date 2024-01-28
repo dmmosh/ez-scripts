@@ -105,10 +105,10 @@ do
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
 	then
 		# the new message
-		git_msg="$(echo $@ | cut -d'=' -f2)"
-		git_msg_print="$git_msg" # serialization screws with printingd
+		git_msg="$(echo $@ | cut -d'=' -f2)" 
+		git_msg_print="$git_msg" # serialization screws with printing
 
-		serialize git_msg &> /dev/null
+		serialize git_msg &> /dev/null # suppress serialization
 		# if the message is blank
 		if [ -z "$git_msg" ]
 		then
