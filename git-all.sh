@@ -45,7 +45,7 @@ info(){
    	echo -e "   Type 'git-all --help' for more info."
 }
 
-# script's dirgffsddffsd
+# script's dirgffsddffsdsdff
 # useful for serialization
 script_dir="$(realpath $0)"
 
