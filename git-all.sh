@@ -122,7 +122,7 @@ do
 			exit 1
 		fi
 
-		echo -e "\nDEFAULT MESSAGE of '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
+		echo -e "\nDEFAULT MESSAGE '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
 		echo "$script_dir/git-all-sm.sh"
 
 		exit 1

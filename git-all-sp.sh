@@ -1,1 +1,1 @@
-declare -g -- git_pull="true"
+declare -g -- git_pull="false"
