@@ -2,6 +2,7 @@
 
 : '
     AN INIT FILE FOR GIT-ALL
+    dsd
 '
 
 #installer
@@ -26,7 +27,15 @@ then
 fi
 
 echo -e "MAKING CONFIG FOLDER..."
-mkdir /etc/git-all/
+
+if [ ! -d "~/.config/ez-scripts" ]
+then 
+mkdir ~/.config/ez-scripts
+fi
+mkdir ~/.config/ez-scripts/git-all
+
+echo -e "MAKING CONFIG FILES..."
+
 
 echo -e "MAKING EXECUTABLE..."
 cp $dir/git-all /usr/bin

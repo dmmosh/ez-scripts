@@ -1,4 +1,4 @@
-# EZ SCRIPTS #
+# EZ-SCRIPTS #
 
 Pressing the same buttons/commands is not fun. Which is why I have made this collection of smaller scripts, made to automate the most basic of everyday tasks. Over time, these small increases to productivity will amount to great time savings.
 
