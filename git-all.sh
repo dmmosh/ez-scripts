@@ -224,13 +224,13 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	git pull
+	[ "$git_silence" == "true" ] && git pull &> /dev/null || git pull
 fi
 
-git add --all && \
-git commit -m "$git_msg" && \
+[ "$git_silence" == "true" ] && git add --all &> /dev/null || git add --all && \
+[ "$git_silence" == "true" ] && git commit -m "$git_msg" &> /dev/null || git commit -m "$git_msg" && \
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
-echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
+[ "$git_silence" == "true" ] || echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
 exit 1
 # final exception handle
