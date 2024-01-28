@@ -45,9 +45,6 @@ info(){
    	echo -e "   Type 'git-all --help' for more info."
 }
 
-# script's dirgffsddffsdsdff
-# useful for serialization
-script_dir="$(realpath $0)"
 
 #serialize
 serialize() {
@@ -63,7 +60,7 @@ serialize() {
 	;;
 	esac
 
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$script_dir/$file"
+    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "/etc/git-all/$file"
 }
 
 #deserialize
@@ -79,7 +76,7 @@ deserialize() {
 	;;
 	esac
 
-    source "$script_dir/$file"
+    source "/etc/git-all/$file"
 }
 
 
@@ -115,15 +112,18 @@ do
 
 		serialize git_msg 
 
-		if [ ! -f "$script_dir/git-all-sm.sh" ]
+		if [ ! -f "/etc/git-all/git-all-sm.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
 			exit 1
 		fi
 
+		if [ "$git_silence" == "false" ]
+		then
 		echo -e "\nDEFAULT MESSAGE '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
-		echo "$script_dir/git-all-sm.sh"
+		echo "/etc/git-all/git-all-sm.sh"
+		fi
 
 		exit 1
 	
@@ -159,15 +159,18 @@ do
 		serialize git_pull
 
 		# something bad happene
-		if [ ! -f "$script_dir/git-all-sp.sh" ]
+		if [ ! -f "/etc/git-all/git-all-sp.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
 			exit 1
 		fi
 
+		if [ "$git_silence" == "false" ]
+		then
 		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
-		echo "$script_dir/git-all-sp.sh"
+		echo "/etc/git-all/git-all-sp.sh"
+		fi
 		exit 1
 
 	#silence the output
@@ -194,7 +197,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "$script_dir/git-all-sm.sh" ]
+	if [ -f "/etc/git-all/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -206,7 +209,7 @@ fi
 
 
 # pull status
-if [ -f "$script_dir/git-all-sp.sh" ]
+if [ -f "/etc/git-all/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
