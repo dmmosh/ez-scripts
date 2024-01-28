@@ -213,7 +213,7 @@ fi
 #change to the inputted (or default) dir
 cd $dir
 
-if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvfddfggfdvfo git repofdsffds
+if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvfddfggfdvfo git repofdsffdsfs
 then
 	cd $dir_start
 	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
@@ -221,6 +221,7 @@ then
 	exit 1	
 fi
 
+if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" && -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 
 if [ "$git_pull" == "true" ]
 then
