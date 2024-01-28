@@ -8,7 +8,4 @@ I know it's not a lot right now.
 
 generally the installation is:
 
-'''bash
-git clone https://github.com/wettestsock/ez-scripts
-cd ./ez-scripts
-'''
+'''git clone https://github.com/wettestsock/ez-scripts cd ./ez-scripts'''
