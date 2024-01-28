@@ -119,7 +119,7 @@ do
 			exit 1
 		fi
 
-		echo -e "\nDEFAULT MESSAGE of '$git_msg' SUCCESSFULLY SERIALIZED IN:"
+		echo -e "\nDEFAULT MESSAGE of '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
 		echo "$script_dir/git-all-sm.sh"
 
 		exit 1
@@ -163,7 +163,7 @@ do
 			exit 1
 		fi
 
-		echo -e "\nPULL STATUS of $git_pull SUCCESSFULLY SERIALIZED IN:"
+		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
 		echo "$script_dir/git-all-sp.sh"
 		exit 1
 
@@ -219,11 +219,8 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	echo GIT PULL
-else 
-	echo NO PULLING
+	git pull
 fi
-
 git add --all && \
 git commit -m "$git_msg" && \
 git push && \
