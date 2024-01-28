@@ -242,5 +242,6 @@ fi
 cd $dir_start && \
 exit 1
 # final exception handle
-echo -e "SOMETHING DIDN'T WORK!!!!\nFAILED TO PUSH!!"	
+echo -e "FATAL ERROR:\n   SOMETHING DIDN'T WORK!!!"
+info	
 cd $dir_start
