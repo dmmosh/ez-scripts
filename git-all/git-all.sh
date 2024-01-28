@@ -60,7 +60,7 @@ serialize() {
 	;;
 	esac
 
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "~/.config/ez-scripts/git-all/$file"
+    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$HOME/.config/ez-scripts/git-all/$file"
 }
 
 #deserialize
@@ -76,7 +76,7 @@ deserialize() {
 	;;
 	esac
 
-    source "~/.config/ez-scripts/git-all/$file"
+    source "$HOME/.config/ez-scripts/git-all/$file"
 }
 
 
@@ -112,7 +112,7 @@ do
 
 		serialize git_msg 
 
-		if [ ! -f "~/.config/ez-scripts/git-all/git-all-sm.sh" ]
+		if [ ! -f "$HOME/.config/ez-scripts/git-all/git-all-sm.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
@@ -122,7 +122,7 @@ do
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nDEFAULT MESSAGE '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
-		echo "~/.config/ez-scripts/git-all/git-all-sm.sh"
+		echo "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
 		fi
 
 		exit 1
@@ -159,7 +159,7 @@ do
 		serialize git_pull
 
 		# something bad happene
-		if [ ! -f "~/.config/ez-scripts/git-all/git-all-sp.sh" ]
+		if [ ! -f "$HOME/.config/ez-scripts/git-all/git-all-sp.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
@@ -169,7 +169,7 @@ do
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
-		echo "~/.config/ez-scripts/git-all/git-all-sp.sh"
+		echo "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 		fi
 		exit 1
 
@@ -197,7 +197,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "~/.config/ez-scripts/git-all/git-all-sm.sh" ]
+	if [ -f "$HOME/.config/ez-scripts/git-all/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -209,7 +209,7 @@ fi
 
 
 # pull status
-if [ -f "~/.config/ez-scripts/git-all/git-all-sp.sh" ]
+if [ -f "$HOME/.config/ez-scripts/git-all/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
