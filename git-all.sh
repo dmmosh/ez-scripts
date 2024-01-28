@@ -193,7 +193,7 @@ done
 # if git message is blank (default msg)
 if [ -z "$git_msg" ]
 then
-	# if no custom message and git message is blank
+	# if no custom message and git message is blankfd
 	if [ -f "$script_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
