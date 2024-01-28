@@ -22,3 +22,8 @@ cd ./ez-scripts
 cd <script folder name>
 ./uninstall.sh
 ```
+
+
+# GIT-ALL #
+A conveinent way to handle personal repos.
+
