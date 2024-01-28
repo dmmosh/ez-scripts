@@ -73,7 +73,11 @@ deserialize() {
 		file="git-all-sp.sh"
 	fi
 
+    declare() { builtin declare -g "$1"; }
+    typeset() { builtin typeset -g "$1"; }
+
     source "$home_dir/$file"
+    unset -f declare typeset
 }
 
 
