@@ -224,7 +224,7 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	git pull  [[ $git_silence ]] && &> /dev/null
+	[[ $git_silence ]] && git pull &> /dev/null || git pull
 fi
 
 git add --all &> /dev/null  && \
