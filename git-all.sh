@@ -222,7 +222,7 @@ then
 	exit 1	
 fi
 
-# check if branch is up to date with origin
+# check if branch is up to date with originfd
 # ugly way to do it but it works
 if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" ] && [ -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 then
