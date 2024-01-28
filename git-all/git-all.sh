@@ -106,7 +106,7 @@ do
 	then
 		# the new message
 		git_msg="$(echo $@ | cut -d'=' -f2)"
-		git_msg_print="$git_msg" # serialization screws with printing
+		git_msg_print="$git_msg" # serialization screws with printingd
 
 		serialize git_msg &> /dev/null
 		# if the message is blank
