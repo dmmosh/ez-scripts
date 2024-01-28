@@ -24,7 +24,7 @@ echo
 		echo OPTIONS:
 		echo -e "   -h, --help\t\t\thelp page"
 
-		echo -e '   -s, --silence'
+		echo -e '   -s, --silence\t\tsilence the output'
 
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t('nothing of note' by default)\n"
