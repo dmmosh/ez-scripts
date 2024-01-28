@@ -227,7 +227,7 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	git pull 
+	git pull &> /dev/null
 fi
 
 git add --all &> /dev/null  && \
