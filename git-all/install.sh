@@ -32,8 +32,12 @@ echo -e "MAKING CONFIG FOLDER..."
 
 mkdir -p "$user_dir/.config/ez-scripts"
 mkdir -p "$user_dir/.config/ez-scripts/git-all"
+
 touch "$user_dir/.config/ez-scripts/git-all/git-all-sm.sh"
-touch "$user_dir/.config/ez-scripts/git-all/git-all-sp.sp"
+chmod +x "$user_dir/.config/ez-scripts/git-all/git-all-sm.sh"
+
+touch "$user_dir/.config/ez-scripts/git-all/git-all-sp.sh"
+chmod +x "$user_dir/.config/ez-scripts/git-all/git-all-sp.sh"
 
 
 

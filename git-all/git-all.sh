@@ -48,18 +48,18 @@ info(){
 
 #serialize
 serialize() {
-	[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
 	# the file to serialize to
-	file="git-all-debug.sh"
-	case $1 in
-	"git_msg")
-		file="git-all-sm.sh"
-	;;
-	"git_pull")
-		file="git-all-sp.sh"
-	;;
-	esac
 
+	# default dm 
+	file="git-all-sm.sh"
+
+	# if pull status
+	if [ "$1" == "true" ] || [ "$1" == "false" ]
+	then
+		file="git-all-sp.sh"
+	fi
+
+    #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$home_dir/.config/ez-scripts/git-all/$file"
     typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$home_dir/.config/ez-scripts/git-all/$file"
 }
 
