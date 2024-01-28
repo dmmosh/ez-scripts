@@ -6,6 +6,14 @@ sure, go ahead
 "
 
 
+
+dir="." #directory to be gitted into
+dir_start="$(pwd)" #current dir
+git_msg="" # the git message
+git_silence=false # whether to silence or notfd
+git_pull="true" # default true
+home_dir="$HOME" # home dir, normal unless running root
+
 #calls a help page
 help_page(){
 echo
@@ -44,8 +52,6 @@ echo
 info(){
    	echo -e "   Type 'git-all --help' for more info."
 }
-
-
 #serialize
 serialize() {
 	# the file to serialize to
@@ -60,7 +66,7 @@ serialize() {
 	fi
 
     #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"
-    typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}' > "$home_dir/$file"
+    $(echo "$(typeset -p $1 | sed -E '0,/^(typeset|declare)/{s/ / -g /}')" | sudo tee "$config_dir/$file")
 }
 
 #deserialize
@@ -73,16 +79,10 @@ deserialize() {
 		file="git-all-sp.sh"
 	fi
 
-    source "$home_dir/$file"
+    source "$config_dir/$file"
 }
 
 
-dir="." #directory to be gitted into
-dir_start="$(pwd)" #current dir
-git_msg="" # the git message
-git_silence=false # whether to silence or notfd
-git_pull="true" # default true
-home_dir="$HOME" # home dir, normal unless running root
 
 # if running as sudo
 if [ "$UID" -eq 0 ]
@@ -90,6 +90,7 @@ then
 	home_dir="$(eval echo ~$SUDO_USER)"
 fi
 
+config_dir="$home_dir/.config/ez-scripts/git-all"
 
 # iterates through parameters
 for i in "$@"
@@ -115,17 +116,19 @@ do
 
 		serialize git_msg
 
-		if [ ! -f "$home_dir/git-all-sm.sh" ]
+		# if no config file
+		if [ ! -f "$config_dir/git-all-sm.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
 			exit 1
 		fi
 
+		# print message
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nDEFAULT MESSAGE '$(echo $git_msg | tr a-z A-Z)' SERIALIZED IN:"
-		echo "$home_dir/git-all-sm.sh"
+		echo "$config_dir/git-all-sm.sh"
 		fi
 
 		exit 1
@@ -162,7 +165,7 @@ do
 		serialize git_pull
 
 		# something bad happene
-		if [ ! -f "$home_dir/git-all-sp.sh" ]
+		if [ ! -f "$config_dir/git-all-sp.sh" ]
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
@@ -172,7 +175,7 @@ do
 		if [ "$git_silence" == "false" ]
 		then
 		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
-		echo "$home_dir/git-all-sp.sh"
+		echo "$config_dir/git-all-sp.sh"
 		fi
 		exit 1
 
@@ -180,6 +183,7 @@ do
 	elif [ "$i" == "-s" ] || [ "$i" == "--silence" ]
 	then
 		git_silence="true"
+		
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
@@ -200,7 +204,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "$home_dir/git-all-sm.sh" ]
+	if [ -f "$config_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -212,14 +216,14 @@ fi
 
 
 # pull status
-if [ -f "$home_dir/git-all-sp.sh" ]
+if [ -f "$config_dir/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
 
 
 #change to the inputted (or default) dir
-cd $dir
+	$dir
 
 
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
