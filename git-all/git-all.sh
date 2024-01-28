@@ -59,7 +59,7 @@ serialize() {
 		file="git-all-sp.sh"
 	fi
 
-    #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"gf
+    #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"gffd
 
     $(echo "$(typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}')" | sudo tee "$config_dir/$file")
 }
