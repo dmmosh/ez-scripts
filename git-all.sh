@@ -229,7 +229,7 @@ fi
 
 git add --all && \
 git commit -m "$git_msg" && \
-git push && \
+[ $git_silence ] && $(git push &> /dev/null) || git push && \
 echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
 exit 1
