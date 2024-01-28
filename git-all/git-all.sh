@@ -106,8 +106,9 @@ do
 	then
 		# the new message
 		git_msg="$(echo $@ | cut -d'=' -f2)"
+		git_msg_print="$git_msg" # serialization screws with printing
 
-		serialize git_msg
+		serialize git_msg &> /dev/null
 		# if the message is blank
 		if [ -z "$git_msg" ]
 		then
@@ -116,7 +117,6 @@ do
 			exit 1
 		fi
 
-		echo $git_msg
 		#serialize git_msg
 
 		# if no config file
@@ -130,7 +130,7 @@ do
 		# print message
 		if [ "$git_silence" == "false" ]
 		then
-		echo -e "\nDEFAULT MESSAGE '$(echo "$git_msg" | tr a-z A-Z)' SERIALIZED IN:"
+		echo -e "\nDEFAULT MESSAGE '$(echo "$git_msg_print" | tr a-z A-Z)' SERIALIZED IN:"
 		echo "$config_dir/git-all-sm.sh"
 		fi
 
