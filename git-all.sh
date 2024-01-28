@@ -230,10 +230,10 @@ then
 	git pull 
 fi
 
-git add --all  && \
-git commit -m "$git_msg"  && \
+git add --all &> /dev/null  && \
+git commit -m "$git_msg" &> /dev/null && \
 git push &> /dev/null && \
-echo -e "REPO PUSHED VERY SUCCESSFULLY"  && \
+echo -e "REPO PUSHED VERY SUCCESSFULLY" &> /dev/null && \
 cd $dir_start && \
 exit 1
 # final exception handle
