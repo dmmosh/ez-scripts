@@ -80,7 +80,7 @@ deserialize() {
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
-git_silence=false # whether to silence or not
+git_silence=false # whether to silence or notfd
 git_pull="true" # default true
 home_dir="$HOME" # home dir, normal unless running root
 
