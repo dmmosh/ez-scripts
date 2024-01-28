@@ -193,7 +193,7 @@ done
 # if git message is blank (default msg)
 if [ -z "$git_msg" ]
 then
-	# if no custom message and git message is blankfd
+	# if no custom message and git message is blank
 	if [ -f "$script_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
@@ -216,7 +216,7 @@ fi
 cd $dir
 
 
-if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvfddfggfdgfdvfo git repofdsffdsfs
+if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres no git repo
 then
 	cd $dir_start
 	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
@@ -232,6 +232,8 @@ then
 	exit 1
 fi
 
+# ugly piece of code
+# TODO: fix this monstrocity
 [ "$git_pull" == "true" ] && ( [ "$git_silence" == "true" ] && git pull &> /dev/null || git pull ) && \
 [ "$git_silence" == "true" ] && git add . &> /dev/null || git add . && \
 [ "$git_silence" == "true" ] && git commit -m "$git_msg" &> /dev/null || git commit -m "$git_msg" && \
