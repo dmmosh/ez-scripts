@@ -25,5 +25,5 @@ cd <script folder name>
 
 
 # GIT-ALL #
-A conveinent way to handle personal repos.
+A conveinent way to handle personal repos. A wrapper for running the most common git commands, with a few, expanded features. Designed for everyday use and easily scriptable into other programs.
 
