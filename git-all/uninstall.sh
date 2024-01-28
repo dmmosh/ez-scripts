@@ -2,18 +2,19 @@
 
 # UNINSTALLER 
 
-echo -e "DELETING .DESKTOP FILE..."
-if [ -d "/usr/share/applications" ]
-then
-   sudo rm /usr/share/applications/git-all.desktop
-elif [ -d "~/.local/share/applications" ]
-then
-    sudo rm ~/.local/share/applications/git-all.desktop
-fi
+# ask for sudo permissions
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+
+
+echo -e "DELETING .DESKTOP FILE..." 
+sudo rm /usr/share/applications/git-all.desktop
 
 echo -e "DELETING CONFIG FOLDER..."
-rm -rf /etc/git-all
+rm -rf /etc/git-all 
 
-echo -e "DELETING EXECUTABLE..."
-rm /usr/bin/git-all.sh
+echo -e "DELETING EXECUTABLE..." 
+rm /usr/bin/git-all
+
+echo -e "Thank you for using git-all. -Dmytro" 
+
 

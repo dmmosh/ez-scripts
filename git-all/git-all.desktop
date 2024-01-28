@@ -3,6 +3,6 @@ Encoding=UTF-8
 Name=git-all
 Comment=convenient way to handle personal repos
 Terminal=true
-Exec=/usr/bin/git-all.sh
+Exec=/usr/bin/git-all
 Categories=Utility;Development;Building;
 Type=Application
