@@ -24,6 +24,8 @@ echo
 		echo OPTIONS:
 		echo -e "   -h, --help\t\t\thelp page"
 
+		echo -e '   -s, --silence'
+
 		echo -e '   -dm=, --def-msg=<text>\tset default message'
 		echo -e "\t\t\t\twill create a git-all-s.sh file in the script's directory\n\t\t\t\t('nothing of note' by default)\n"
 
@@ -222,7 +224,7 @@ then
 	exit 1	
 fi
 
-# check if branch is up to date with originfd
+# check if branch is up to date with origin
 # ugly way to do it but it works
 if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" ] && [ -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 then
