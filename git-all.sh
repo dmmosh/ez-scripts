@@ -232,11 +232,7 @@ then
 	exit 1
 fi
 
-if [ "$git_pull" == "true" ]
-then
-	[ "$git_silence" == "true" ] && git pull &> /dev/null || git pull
-fi
-
+[ "$git_pull" == "true" ] && ( [ "$git_silence" == "true" ] && git pull &> /dev/null || git pull ) && \
 [ "$git_silence" == "true" ] && git add . &> /dev/null || git add . && \
 [ "$git_silence" == "true" ] && git commit -m "$git_msg" &> /dev/null || git commit -m "$git_msg" && \
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
