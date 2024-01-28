@@ -65,7 +65,7 @@ serialize() {
 		file="git-all-sp.sh"
 	fi
 
-    #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"
+    #typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}f' > "$home_dir/.config/ez-scripts/git-all/$file"gf
     $(echo "$(typeset -p "$1" | sed -E '0,/^(typeset|declare)/{s/ / -g /}')" | sudo tee "$config_dir/$file")
 }
 
@@ -127,7 +127,7 @@ do
 		# print message
 		if [ "$git_silence" == "false" ]
 		then
-		echo -e "\nDEFAULT MESSAGE $(echo "$git_msg" | tr a-z A-Z) SERIALIZED IN:"
+		echo -e "\nDEFAULT MESSAGE $(echo $git_msg | tr a-z A-Z) SERIALIZED IN:"
 		echo "$config_dir/git-all-sm.sh"
 		fi
 
