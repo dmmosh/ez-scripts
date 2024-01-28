@@ -84,8 +84,7 @@ deserialize() {
 dir="." #directory to be gitted into
 dir_start="$(pwd)" #current dir
 git_msg="" # the git message
-git_silence1="" # whether to silence or not
-git_silence2=""
+git_silence=false # whether to silence or not
 git_pull="true" # default true
 
 
@@ -172,9 +171,7 @@ do
 	#silence the output
 	elif [ "$i" == "-s" ] || [ "$i" == "--silence" ]
 	then
-		git_silence1="&>"
-		git_silence2="/dev/null"
-
+		git_silence1=true
 	# if relative dir (without ./) 
 	elif [ -d "./$i" ] 
 	then
@@ -227,7 +224,7 @@ fi
 
 if [ "$git_pull" == "true" ]
 then
-	git pull &> /dev/null
+	git pull  [[ $git_silence ]] && &> /dev/null
 fi
 
 git add --all &> /dev/null  && \
