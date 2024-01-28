@@ -213,6 +213,7 @@ fi
 #change to the inputted (or default) dir
 cd $dir
 
+
 if [ "$(git rev-parse --is-inside-work-tree)" != "true" ] # if theres nvfddfggfdgfdvfo git repofdsffdsfs
 then
 	cd $dir_start
@@ -221,6 +222,8 @@ then
 	exit 1	
 fi
 
+# check if branch is up to date with origin
+# ugly way to do it but it works
 if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" ] && [ -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 then
 	[ "$git_silence" == "true" ] || git status -uno
@@ -232,7 +235,7 @@ then
 	[ "$git_silence" == "true" ] && git pull &> /dev/null || git pull
 fi
 
-[ "$git_silence" == "true" ] && git add --all &> /dev/null || git add --all && \
+[ "$git_silence" == "true" ] && git add . &> /dev/null || git add . && \
 [ "$git_silence" == "true" ] && git commit -m "$git_msg" &> /dev/null || git commit -m "$git_msg" && \
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
 [ "$git_silence" == "true" ] || echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
