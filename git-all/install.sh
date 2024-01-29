@@ -85,7 +85,7 @@ dir="$(pwd)"
 # have to do sudo user for linux whereas macos keeps it at home variable
 
 # if os is supported, install the dependencies
-if [ ! -z "$pkg_manager" ] 
+if [ ! -z "$pkg_manager" ] && [ -z "$(command -v shc)" ] 
 then
     eval "$pkg_manager shc"
 fi
