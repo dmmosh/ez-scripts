@@ -98,7 +98,7 @@ then
     exit 1
 fi
 
-[ "$UID" -eq 0 ] || exec sudo "$0" "$@"
+[ "$UID" -eq 0 ] || sudo "$0" "$@"
 
 chmod +x "$dir/git-all.sh"
 chmod +x "$dir/git-all.desktop"
@@ -106,7 +106,7 @@ chmod +x "$dir/uninstall.sh"
 
 echo -e "COMPILING THE EXECUTABLE..."
 shc -f $dir/git-all.sh -o git-all
-mv git-all /usr/bin/git-all
+sudo mv git-all /usr/bin/git-all
 
 
 echo -e "MAKING CONFIG FOLDER..."
