@@ -5,14 +5,6 @@
     dsd
 '
 
-# ROOT PERMISSIONS
-if [ ! "$UID" -eq 0 ]
-then
-    echo -e "FATAL ERROR:"
-    echo -e "   NEED ROOT PRIVILEDGES TO RUN THE INSTALL SCRIPT"
-    echo -e "   RUN 'sudo ./$(basename "$0")'"
-    exit 1
-fi
 
 
 # GET DEPENDENCIES (linux and macos)
@@ -20,6 +12,8 @@ fi
 # Determine OS name
 
 os="$(uname)" # default for macos
+# Desktop manager
+pkg_manager=""
 
 #finds linux distro
 if [ -f /etc/os-release ]
@@ -33,16 +27,12 @@ then
     os="android"
 fi
 
-# Desktop manager
-pkg_manager=""
-os="dfsfiou"
 
 # IF LINUX - FIND THE DISTRO
 #TODO: dont forget to add sudo
 case "$os" in
     # ARCH
     arch)
-    echo hi
     pkg_manager="yay -S"        
     ;;
 
@@ -74,7 +64,7 @@ case "$os" in
     # MACOS
     Darwin)
     # if brew isn't installed, install it
-    if [ -z "$(brew --help | grep 'Example usage:')" ] 
+    if [ -z "$(command -v brew)" ] 
     then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
@@ -87,7 +77,6 @@ case "$os" in
     ;;
     
 esac
-exit 1
 
 
 #dir path of the executable
@@ -95,34 +84,22 @@ exit 1
 dir="$(pwd)"
 
 # have to do sudo user for linux whereas macos keeps it at home variable
-user_dir= [ "$os" = "Darwin" ] && "$(echo $HOME)" || "$(eval echo ~$SUDO_USER)"
 
 # if os is supported, install the dependencies
-if [ ! -z "$os" ] 
+if [ ! -z "$pkg_manager" ] 
 then
-    bash -c "$pkg_manager shc && $pkg_manager gcc"
+    eval "$pkg_manager shc"
 fi
 
 # checking if dependencies are installed 
-if [ -z "$(gcc --help) | grep 'Usage:')" ]
-then
-    echo -e "FATAL ERROR:"
-    echo -e "   GCC not found.\n   Please install gcc and run 'sudo ./$(basename "$0")' again."
-    exit 1
-elif [ -z "$(shc -help | grep 'shc Version')" ]
+if [ -z "$(command -v shc)" ]
 then
     echo -e "FATAL ERROR:"
     echo -e "   SHC not found.\n   Please install shc and run 'sudo ./$(basename "$0")' again."
     exit 1
 fi
 
-if [ "$os" == "Darwin" ]
-then
-
-fi
-
-
-
+[ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
 chmod +x "$dir/git-all.sh"
 chmod +x "$dir/git-all.desktop"
@@ -132,28 +109,32 @@ echo -e "COMPILING THE EXECUTABLE..."
 shc -f ./git-all.sh -o /usr/bin/git-all
 
 
+echo -e "MAKING CONFIG FOLDER..."
+mkdir -p "$HOME/.config/ez-scripts"
+mkdir -p "$HOME/.config/ez-scripts/git-all"
+
+touch "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
+chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
+
+touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
+chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
+
+# different installation for macos
+if [ "$os" == "Darwin" ]
+then
+    exit 1
+fi
+
+
+# for linux
 echo -e "COPYING THE .DESKTOP FILE..."
 if [ -d "/usr/share/applications" ]
 then
    sudo cp -r $dir/git-all.desktop /usr/share/applications
 elif [ -d ".local/share/applications" ]
 then
-    sudo cp -r $dir/git-all.desktop "$user_dir.local/share/applications"
+    sudo cp -r $dir/git-all.desktop "$HOME.local/share/applications"
 fi
 
-echo -e "MAKING CONFIG FOLDER..."
-
-mkdir -p "$user_dir/.config/ez-scripts"
-mkdir -p "$user_dir/.config/ez-scripts/git-all"
-
-touch "$user_dir/.config/ez-scripts/git-all/git-all-sm.sh"
-chmod +x "$user_dir/.config/ez-scripts/git-all/git-all-sm.sh"
-
-touch "$user_dir/.config/ez-scripts/git-all/git-all-sp.sh"
-chmod +x "$user_dir/.config/ez-scripts/git-all/git-all-sp.sh"
 
 
-
-
-echo -e "MAKING EXECUTABLE..."
-cp $dir/git-all /usr/bin 
