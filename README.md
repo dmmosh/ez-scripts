@@ -4,14 +4,18 @@ Pressing the same buttons/commands is not fun. Which is why I have made this col
 
 My customn scripts for automating annoying tasks, compiled and wrapped in wrapping paper for you to enjoy yourself.
 
+Every script comes with a ./install.sh script, handling all dependencies in the process.
+
 I know it's not a lot right now.
 I will introduce an installer, possibly using dialog, once this repo gets expanded with more convenient scripts.
+
+All scripts can be reconfigured and recompiled.
+Edit the .sh file and run the install script again.
 
 **generally the installation is:**
 ```
 git clone https://github.com/wettestsock/ez-scripts
-cd ./ez-scripts
-cd <script folder name>
+cd ./ez-scripts/<script name>
 chmod +x ./install.sh
 ./install.sh
 ```
@@ -24,6 +28,21 @@ cd <script folder name>
 ```
 
 
+
+
 # GIT-ALL #
 A conveinent way to handle personal repos. A wrapper for running the most common git commands, with a few, expanded features. Designed for everyday use and easily scriptable into other programs.
 
+**INSTALLATION:**
+```
+git clone https://github.com/wettestsock/ez-scripts
+cd ./ez-scripts/git-all
+chmod +x ./install.sh
+./install.sh
+```
+
+**UNINSTALLATION:**
+```
+cd ./ez-scripts/git-all
+./uninstall.sh
+```
