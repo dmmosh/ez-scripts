@@ -100,6 +100,7 @@ do
 	if [ "$i" == "-h" ] || [ "$i" == "--help" ]
 	then
 		help_page
+		exit 1
 	
 	# if setting custom default message
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
