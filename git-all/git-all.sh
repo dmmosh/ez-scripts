@@ -208,7 +208,7 @@ done
 if [ -z "$git_msg" ]
 then
 	# if no custom message and git message is blank
-	if [ -f "$home_dir/git-all-sm.sh" ]
+	if [ -f "$config_dir/git-all-sm.sh" ]
 	then
 		deserialize git_msg
 
@@ -220,7 +220,7 @@ fi
 
 
 # pull status
-if [ -f "$home_dir/git-all-sp.sh" ]
+if [ -f "$config_dir/git-all-sp.sh" ]
 then
 	deserialize git_pull
 fi
