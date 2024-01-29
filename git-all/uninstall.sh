@@ -21,6 +21,7 @@ os="$(uname)"
 home_dir="$HOME"
 
 # for linux
+# find user home dir
 if [ ! "$os" == "Darwin" ]
 then
 home_dir="/home/${SUDO_USER}"
