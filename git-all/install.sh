@@ -105,7 +105,8 @@ chmod +x "$dir/git-all.desktop"
 chmod +x "$dir/uninstall.sh"
 
 echo -e "COMPILING THE EXECUTABLE..."
-shc -f "$dir/git-all.sh" -o "/usr/bin/git-all"
+shc -rf "$dir/git-all.sh" -o "git-all"
+mv "$dir/git-all" "/usr/bin/git-all"
 
 
 echo -e "MAKING CONFIG FOLDER..."
