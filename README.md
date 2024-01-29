@@ -10,7 +10,15 @@ I know it's not a lot right now.
 I will introduce an installer, possibly using dialog, once this repo gets expanded with more convenient scripts.
 
 All scripts can be reconfigured and recompiled.
+<<<<<<< HEAD
 The install script will recompile the script for you. So just change the .sh file, run `./install.sh`, and youre all set.
+=======
+Just edit the .sh file and run the install script again. The install script will recompile the code and place it where it needs to be.
+
+Supports Linux and MacOS (if you give the terminal full system access)
+
+
+>>>>>>> 154781a (thoas jefferson)
 
 **generally the installation is:**
 ```
@@ -32,6 +40,24 @@ cd <script folder name>
 
 # GIT-ALL #
 A conveinent way to handle personal repos. A wrapper for running the most common git commands, with a few, expanded features. Designed for everyday use and easily scriptable into other programs.
+
+**OPTIONS:**
+   -h, --help			help page
+   -s, --silence		silence the output
+   -dm=, --def-msg=<text>	set default message
+				will create a git-all-s.sh file in the script's directory
+				('nothing of note' by default)
+
+   -p=, --pull=<1/0, true/false> whether to do a git pull first
+				will create a git-all-s.sh file in the script's directory
+				(1 by default)
+
+   <directory>			git commits in the passed directory
+				by default will use the current dir / go down to parent dirs
+
+   <message>			adds a custom message to the commit
+				by default will be default message
+
 
 **INSTALLATION:**
 ```
