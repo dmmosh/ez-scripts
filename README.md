@@ -11,6 +11,7 @@ I will introduce an installer, possibly using dialog, once this repo gets expand
 
 All scripts can be reconfigured and recompiled.
 The install script will recompile the script for you. So just change the .sh file, run `./install.sh`, and youre all set.
+
 **generally the installation is:**
 ```
 git clone https://github.com/wettestsock/ez-scripts
