@@ -98,7 +98,7 @@ then
     exit 1
 fi
 
-[ "$UID" -eq 0 ] || sudo "$0" "$@"
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
 
 chmod +x "$dir/git-all.sh"
 chmod +x "$dir/git-all.desktop"
