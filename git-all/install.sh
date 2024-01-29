@@ -107,7 +107,7 @@ chmod +x "$dir/uninstall.sh"
 echo -e "COMPILING THE EXECUTABLE..."
 shc -rf "$dir/git-all.sh" -o "git-all"
 mv "$dir/git-all" "/usr/bin/git-all"
-
+rm "$dir/git-all.sh.x.c"
 
 echo -e "MAKING CONFIG FOLDER..."
 mkdir -p "$HOME/.config/ez-scripts"
