@@ -42,6 +42,7 @@ cd <script folder name>
 A conveinent way to handle personal repos. A wrapper for running the most common git commands, with a few, expanded features. Designed for everyday use and easily scriptable into other programs.
 
 **OPTIONS:**
+```
    -h, --help			help page
    -s, --silence		silence the output
    -dm=, --def-msg=<text>	set default message
@@ -57,7 +58,7 @@ A conveinent way to handle personal repos. A wrapper for running the most common
 
    <message>			adds a custom message to the commit
 				by default will be default message
-
+```
 
 **INSTALLATION:**
 ```
