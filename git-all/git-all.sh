@@ -226,7 +226,7 @@ then
 fi
 
 
-#change to the inputted (or default) dir
+#change to the inputted (or default) dirdfsf
 cd $dir
 
 
