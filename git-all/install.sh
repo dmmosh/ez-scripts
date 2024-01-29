@@ -112,10 +112,10 @@ echo -e "MAKING CONFIG FOLDER..."
 mkdir -p "$HOME/.config/ez-scripts"
 mkdir -p "$HOME/.config/ez-scripts/git-all"
 
-touch "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
+sudo touch "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
 chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
 
-touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
+sudo touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 
 # different installation for macosdvsvdfs
