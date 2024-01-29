@@ -49,4 +49,5 @@ cd ./ez-scripts/git-all
 
 **DEPENDENCIES:**
 - shc - the bash script compiler
+
 note: dependency will be installed by the install script
