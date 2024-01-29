@@ -10,8 +10,7 @@ I know it's not a lot right now.
 I will introduce an installer, possibly using dialog, once this repo gets expanded with more convenient scripts.
 
 All scripts can be reconfigured and recompiled.
-Edit the .sh file and run the install script again.
-
+The install script will recompile the script for you. So just change the .sh file, run `./install.sh`, and youre all set.
 **generally the installation is:**
 ```
 git clone https://github.com/wettestsock/ez-scripts
@@ -50,4 +49,4 @@ cd ./ez-scripts/git-all
 **DEPENDENCIES:**
 - shc - the bash script compiler
 
-note: dependency will be installed by the install script
+note: dependency will be installed by the install script. the install script will compile the script and place it where it needs to be FOR YOU. i spent way too long coding this.
