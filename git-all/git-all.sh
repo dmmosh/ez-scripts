@@ -40,7 +40,7 @@ echo
 		echo -e "   <message>\t\t\tadds a custom message to the commit"
 		echo -e "\t\t\t\tby default will be default message"
 
-		exit 1
+		exit 0
 }
 
 info(){
@@ -100,7 +100,7 @@ do
 	if [ "$i" == "-h" ] || [ "$i" == "--help" ]
 	then
 		help_page
-		exit 1
+		exit 0
 	
 	# if setting custom default message
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-dm" ] || [ "$(echo $i | cut -d'=' -f1)" == "--def-msg" ]
@@ -115,7 +115,7 @@ do
 		then
 			echo -e "\nFATAL ERROR:\n   No new default message provided."
 			info
-			exit 1
+			exit 0
 		fi
 
 		#serialize git_msg
@@ -125,7 +125,7 @@ do
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
-			exit 1
+			exit 0
 		fi
 
 		# print message
@@ -135,7 +135,7 @@ do
 		echo "$config_dir/git-all-sm.sh"
 		fi
 
-		exit 1
+		exit 0
 	
 	# if setting whether to pull or not
 	elif [ "$(echo $i | cut -d'=' -f1)" == "-p" ] || [ "$(echo $i | cut -d'=' -f1)" == "--pull" ] 
@@ -157,13 +157,13 @@ do
 		then
 			echo -e "\nFATAL ERROR:\n   No pull status provided.\n   Please provide a pull status."
 			info
-			exit 1
+			exit 0
 		
 		# if some other typo
 		else
 			echo -e "\nFATAL ERROR:\n   That's not a valid pull status.\n   Please provide a pull status."
 			info
-			exit 1
+			exit 0
 		fi 
 
 		serialize git_pull
@@ -173,7 +173,7 @@ do
 		then
 			echo -e "\nFATAL ERROR:\n   Something went HORRIBLY wrong.\n   Serialization failed."
 			info
-			exit 1
+			exit 0
 		fi
 
 		if [ "$git_silence" == "false" ]
@@ -181,7 +181,7 @@ do
 		echo -e "\nPULL STATUS of $(echo "$git_pull" | tr a-z A-Z) SERIALIZED IN:"
 		echo "$config_dir/git-all-sp.sh"
 		fi
-		exit 1
+		exit 0
 
 	#silence the output
 	elif [ "$i" == "-s" ] || [ "$i" == "--silence" ]
@@ -235,7 +235,7 @@ then
 	cd $dir_start
 	echo -e "FATAL ERROR:\n   Not a repo!!\n   Find a repo!!"
 	info
-	exit 1	
+	exit 0	
 fi
 
 # check if branch is up to date with origin
@@ -243,7 +243,7 @@ fi
 if [ "$(git status -uno | grep 'nothing to commit (use -u to show untracked files)')" == "nothing to commit (use -u to show untracked files)" ] && [ -z "$(git status -uno | grep 'Your branch is ahead of')" ]
 then
 	[ "$git_silence" == "true" ] || git status -uno
-	exit 1
+	exit 0
 fi
 
 # ugly piece of code
@@ -254,7 +254,7 @@ fi
 [ "$git_silence" == "true" ] && git push &> /dev/null || git push && \
 [ "$git_silence" == "true" ] || echo -e "REPO PUSHED VERY SUCCESSFULLY" && \
 cd $dir_start && \
-exit 1
+exit 0
 # final exception handle
 echo -e "FATAL ERROR:\n   SOMETHING DIDN'T WORK!!!"
 info	
