@@ -46,3 +46,7 @@ chmod +x ./install.sh
 cd ./ez-scripts/git-all
 ./uninstall.sh
 ```
+
+**DEPENDENCIES:**
+- shc - the bash script compiler
+note: dependency will be installed by the install script
