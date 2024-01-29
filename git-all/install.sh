@@ -118,7 +118,7 @@ chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
 touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 
-# different installation for macos
+# different installation for macosdvsv
 #linux only
 if [ ! "$os" == "Darwin" ]
 then
