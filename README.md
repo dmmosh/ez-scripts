@@ -46,3 +46,4 @@ chmod +x ./install.sh
 cd ./ez-scripts/git-all
 ./uninstall.sh
 ```
+f
