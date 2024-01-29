@@ -10,7 +10,6 @@
 # GET DEPENDENCIES (linux and macos)
 
 # Determine OS name
-
 os="$(uname)" # default for macos
 # Desktop manager
 pkg_manager=""
@@ -106,7 +105,7 @@ chmod +x "$dir/git-all.desktop"
 chmod +x "$dir/uninstall.sh"
 
 echo -e "COMPILING THE EXECUTABLE..."
-shc -f ./git-all.sh -o /usr/bin/git-all
+shc -f $dir/git-all.sh -o /usr/bin/git-all
 
 
 echo -e "MAKING CONFIG FOLDER..."
@@ -120,21 +119,14 @@ touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
 
 # different installation for macos
-if [ "$os" == "Darwin" ]
+#linux only
+if [ ! "$os" == "Darwin" ]
 then
-    exit 1
+    # for linux
+    echo -e "COPYING THE .DESKTOP FILE..."
+    sudo cp -r $dir/git-all.desktop /usr/share/applications
 fi
 
-
-# for linux
-echo -e "COPYING THE .DESKTOP FILE..."
-if [ -d "/usr/share/applications" ]
-then
-   sudo cp -r $dir/git-all.desktop /usr/share/applications
-elif [ -d ".local/share/applications" ]
-then
-    sudo cp -r $dir/git-all.desktop "$HOME.local/share/applications"
-fi
 
 
 
