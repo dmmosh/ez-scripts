@@ -18,14 +18,22 @@ fi
 
 os="$(uname)"
 
+home_dir="$HOME"
+
+# for linux
+if [ ! "$os" == "Darwin" ]
+then
+home_dir="/home/${SUDO_USER}"
+fi
+
 
 
 
 echo -e "DELETING CONFIG FOLDER..."
-rm -rf "$HOME/.config/ez-scripts/git-all"
+rm -rf "$home_dir/.config/ez-scripts/git-all"
 
 # if scripts folder is empty, remove it too
-[ "$(ls -A "$HOME/.config/ez-scripts/")" ] || rmdir "$HOME/.config/ez-scripts/"
+[ "$(ls -A "$home_dir/.config/ez-scripts/")" ] || rmdir "$home_dir/.config/ez-scripts/"
 
 
 echo -e "DELETING EXECUTABLE..." 

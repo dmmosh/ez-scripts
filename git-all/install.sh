@@ -100,6 +100,15 @@ fi
 
 [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
 
+home_dir="$HOME"
+
+# for linux
+if [ ! "$os" == "Darwin" ]
+then
+home_dir="/home/${SUDO_USER}"
+fi
+
+
 chmod +x "$dir/git-all.sh"
 chmod +x "$dir/git-all.desktop"
 chmod +x "$dir/uninstall.sh"
@@ -110,14 +119,14 @@ mv "$dir/git-all" "/usr/bin/git-all"
 rm "$dir/git-all.sh.x.c"
 
 echo -e "MAKING CONFIG FOLDER..."
-mkdir -p "$HOME/.config/ez-scripts"
-mkdir -p "$HOME/.config/ez-scripts/git-all"
+mkdir -p "$home_dir/.config/ez-scripts"
+mkdir -p "$home_dir/.config/ez-scripts/git-all"
 
-sudo touch "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
-chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sm.sh"
+sudo touch "$home_dir/.config/ez-scripts/git-all/git-all-sm.sh"
+chmod +x "$home_dir/.config/ez-scripts/git-all/git-all-sm.sh"
 
-sudo touch "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
-chmod +x "$HOME/.config/ez-scripts/git-all/git-all-sp.sh"
+sudo touch "$home_dir/.config/ez-scripts/git-all/git-all-sp.sh"
+chmod +x "$home_dir/.config/ez-scripts/git-all/git-all-sp.sh"
 
 # different installation for macosdvsvdfs
 #linux only
