@@ -10,9 +10,8 @@ I know it's not a lot right now.
 I will introduce an installer, possibly using dialog, once this repo gets expanded with more convenient scripts.
 
 All scripts can be reconfigured and recompiled.
-<<<<<<< HEAD
 The install script will recompile the script for you. So just change the .sh file, run `./install.sh`, and youre all set.
-=======
+
 Just edit the .sh file and run the install script again. The install script will recompile the code and place it where it needs to be.
 
 Supports Linux and MacOS (if you give the terminal full system access)
