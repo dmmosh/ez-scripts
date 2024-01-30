@@ -17,7 +17,6 @@ Just edit the .sh file and run the install script again. The install script will
 Supports Linux and MacOS (if you give the terminal full system access)
 
 
->>>>>>> 154781a (thoas jefferson)
 
 **generally the installation is:**
 ```
