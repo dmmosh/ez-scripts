@@ -94,7 +94,7 @@ fi
 if [ -z "$(command -v shc)" ]
 then
     echo -e "FATAL ERROR:"
-    echo -e "   SHC not found.\n   Please install shc and run 'sudo ./$(basename "$0")' again."
+    echo -e "   SHC not found.\n   Please install shc and run './$(basename "$0")' again."
     exit 1
 fi
 
