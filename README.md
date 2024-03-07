@@ -20,7 +20,7 @@ Supports Linux and MacOS (if you give the terminal full system access)
 
 **generally the installation is:**
 ```
-git clone https://github.com/wettestsock/ez-scripts
+git clone https://github.com/dmmosh/ez-scripts
 cd ./ez-scripts/<script name>
 chmod +x ./install.sh
 ./install.sh
